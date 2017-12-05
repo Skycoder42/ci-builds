@@ -22,8 +22,9 @@ gcc-6 --version
 g++-6 --version
 
 # get sources and start building
-outDir=$(pwd)/cryptopp
-mkdir $outDir
+outDir=$scriptdir/cryptopp
+cd $scriptdir
+mkdir cryptopp
 mkdir build
 pushd build
 
@@ -39,4 +40,8 @@ make install PREFIX=$outDir
 popd
 
 # pack up for deployment
+pwd
+ls -lsa
 tar cJf cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz cryptopp
+ls -lsa
+readlink -f cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz

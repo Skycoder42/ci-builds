@@ -37,8 +37,9 @@ if [[ "$ABI" == "x86" ]]; then
 fi
 
 # get sources and start building
-outDir=$(pwd)/cryptopp
-mkdir $outDir
+outDir=$scriptdir/cryptopp
+cd $scriptdir
+mkdir cryptopp
 mkdir build
 pushd build
 
@@ -59,4 +60,8 @@ make -f GNUmakefile-cross install PREFIX=$outDir
 popd
 
 # pack up for deployment
+pwd
+ls -lsa
 tar cJf cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz cryptopp
+ls -lsa
+readlink -f cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz
