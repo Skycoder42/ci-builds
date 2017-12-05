@@ -18,12 +18,12 @@ matrix:
     - os: linux
       env:
         - PLATFORM=android_x86
-    #- os: osx
-      #env:
-        #- PLATFORM=clang_64
-    #- os: osx
-      #env:
-        #- PLATFORM=ios
+    - os: osx
+      env:
+        - PLATFORM=macos
+    - os: osx
+      env:
+        - PLATFORM=ios
 
 script:
   - ./cryptopp/travis.sh

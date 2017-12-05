@@ -3,25 +3,33 @@ set -e
 
 export MAKEFLAGS="-j$(sysctl -n hw.ncpu)"
 
-VERSION=5_6_5
-NAME=CRYPTOPP_${VERSION}
-SHA512SUM=82e9a51080ace2734bfe4ba932c31e6a963cb20b570f0fea2fbe9ceccb887c8afecb36cde91c46ac6fea1357fdff6320ab2535b3f0aa48424acdd2cd9dd2e880
+scriptdir=$(dirname $(greadlink -f $0))
 
-sDir=$(dirname $(greadlink -f $0))
-tDir=$(mktemp -d)
-pushd $tDir
+# brew
+brew update
+brew install python3 coreutils
 
-curl -Lo "./$NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$NAME.tar.gz"
-echo "$SHA512SUM $NAME.tar.gz" | gsha512sum --check -
+# get sources and start building
+outDir=$scriptdir/cryptopp
+cd $scriptdir
+mkdir cryptopp
+mkdir build
+pushd build
 
-tar -xf "$NAME.tar.gz"
+curl -Lo "./$CRYPTOPP_NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$CRYPTOPP_NAME.tar.gz"
+echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | gsha512sum --check -
 
-pushd cryptopp-$NAME
+tar -xf "$CRYPTOPP_NAME.tar.gz"
+
+cd cryptopp-$CRYPTOPP_NAME
 set +e
 source ./setenv-ios.sh
 set -e
-make -f GNUmakefile-cross static > /dev/null
-make install PREFIX=$sDir
+make -f GNUmakefile-cross static shared
+make -f GNUmakefile-cross install PREFIX=$outDir
 
 popd
-rm -rf $tDir
+
+# pack up for deployment
+tar cJf cryptopp_${CRYPTOPP_VERSION}_ios.tar.xz cryptopp
+greadlink -f cryptopp_${CRYPTOPP_VERSION}_ios.tar.xz

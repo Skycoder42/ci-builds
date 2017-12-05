@@ -6,10 +6,7 @@ export MAKEFLAGS="-j$(nproc)"
 export ANDROID_HOME=$HOME/android-sdk/
 export ANDROID_NDK=$HOME/android-sdk/ndk-bundle/
 
-NAME=CRYPTOPP_${CRYPTOPP_VERSION}
-SHA512SUM=82e9a51080ace2734bfe4ba932c31e6a963cb20b570f0fea2fbe9ceccb887c8afecb36cde91c46ac6fea1357fdff6320ab2535b3f0aa48424acdd2cd9dd2e880
 ABI=$1
-
 scriptdir=$(dirname $(readlink -f $0))
 
 # install build deps
@@ -43,12 +40,12 @@ mkdir cryptopp
 mkdir build
 pushd build
 
-curl -Lo "./$NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$NAME.tar.gz"
-echo "$SHA512SUM $NAME.tar.gz" | sha512sum --check -
+curl -Lo "./$CRYPTOPP_NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$CRYPTOPP_NAME.tar.gz"
+echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
 
-tar -xf "$NAME.tar.gz"
+tar -xf "$CRYPTOPP_NAME.tar.gz"
 
-cd cryptopp-$NAME
+cd cryptopp-$CRYPTOPP_NAME
 set +e
 source setenv-android.sh $ABI gnu
 set -e
