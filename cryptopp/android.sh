@@ -60,8 +60,7 @@ make -f GNUmakefile-cross install PREFIX=$outDir
 popd
 
 # pack up for deployment
-pwd
+set -x
 ls -lsa
 tar cJf cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz cryptopp
-ls -lsa
 readlink -f cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz

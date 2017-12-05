@@ -40,8 +40,5 @@ make install PREFIX=$outDir
 popd
 
 # pack up for deployment
-pwd
-ls -lsa
 tar cJf cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz cryptopp
-ls -lsa
 readlink -f cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz
