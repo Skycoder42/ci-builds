@@ -2,7 +2,7 @@
 setlocal
 
 set scriptdir=%~dp0
-set outDir=%scriptdir%/cryptopp
+set outDir=%scriptdir%\cryptopp
 cd %scriptdir%
 mkdir cryptopp
 mkdir build
