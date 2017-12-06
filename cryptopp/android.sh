@@ -11,7 +11,7 @@ scriptdir=$(dirname $(readlink -f $0))
 
 # install build deps
 apt-get -qq update
-apt-get -qq install --no-install-recommends make git ca-certificates curl python3 openjdk-8-jdk unzip xz-utils
+apt-get -qq install --no-install-recommends make git ca-certificates curl python3 openjdk-8-jdk unzip
 
 # android skd/ndk
 curl -Lo /tmp/android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip
@@ -55,7 +55,3 @@ make -f GNUmakefile-cross static shared
 make -f GNUmakefile-cross install PREFIX=$outDir
 
 popd
-
-# pack up for deployment
-tar cJf cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz cryptopp
-readlink -f cryptopp_${CRYPTOPP_VERSION}_${ABI}.tar.xz

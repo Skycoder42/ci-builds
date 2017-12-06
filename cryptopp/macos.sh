@@ -26,7 +26,3 @@ make static shared
 make install PREFIX=$outDir
 
 popd
-
-# pack up for deployment
-tar cJf cryptopp_${CRYPTOPP_VERSION}_macos.tar.xz cryptopp
-greadlink -f cryptopp_${CRYPTOPP_VERSION}_macos.tar.xz

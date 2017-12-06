@@ -4,25 +4,21 @@ setlocal
 set PATH=C:\Qt\Tools\mingw530_32\bin;%PATH%;
 set MAKEFLAGS=-j%NUMBER_OF_PROCESSORS%
 
-set VERSION=5_6_5
-set NAME=CRYPTOPP_%VERSION%
-set SHA512SUM=abca8089e2d587f59c503d2d6412b3128d061784349c735f3ee46be1cb9e3d0d0fed9a9173765fa033eb2dc744e03810de45b8cc2f8ca1672a36e4123648ea44
+set scriptdir=%~dp0
+set outDir=%scriptdir%/cryptopp
+cd %scriptdir%
+mkdir cryptopp
+mkdir build
+cd build
 
-set sDir=%~dp0
-set tDir=%temp%\cryptopp
-
-mkdir %tDir%
-cd %tDir%
-
-powershell -Command "Invoke-WebRequest https://github.com/weidai11/cryptopp/archive/%NAME%.zip -OutFile .\%NAME%.zip" || exit /B 1
+:: get the sources
+powershell -Command "Invoke-WebRequest https://github.com/weidai11/cryptopp/archive/%CRYPTOPP_NAME%.zip -OutFile .\%CRYPTOPP_NAME%.zip" || exit /B 1
 :: TODO verify checksum
-7z x .\%NAME%.zip || exit /B 1
+7z x .\%CRYPTOPP_NAME%.zip || exit /B 1
 
-set "xDir=%sDir:\=/%"
+:: build
+cd cryptopp-%CRYPTOPP_NAME%
+mingw32-make static || exit /B 1
+mingw32-make install PREFIX=%outDir:\=/% || exit /B 1
 
-cd cryptopp-%NAME%
-mingw32-make static > nul || exit /B 1
-mingw32-make install PREFIX=%xDir% || exit /B 1
-
-cd %sDir%
-rmdir /s /q %tDir%
+cd %scriptdir%

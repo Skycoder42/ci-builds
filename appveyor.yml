@@ -1,0 +1,41 @@
+image:
+  - Visual Studio 2017
+  - Visual Studio 2015
+
+version: build-{build}
+
+environment:
+  matrix:
+    - PLATFORM: msvc2017_64
+    - PLATFORM: msvc2017
+    - PLATFORM: msvc2015_64
+    - PLATFORM: msvc2015
+    - PLATFORM: mingw
+
+matrix:
+  exclude:
+    - PLATFORM: msvc2017_64
+      image: Visual Studio 2015
+    - PLATFORM: msvc2017
+      image: Visual Studio 2015
+    - PLATFORM: mingw53_32
+      image: Visual Studio 2015
+    - PLATFORM: msvc2015_64
+      image: Visual Studio 2017
+    - PLATFORM: msvc2015
+      image: Visual Studio 2017
+
+build_script:
+  - .\cryptopp\appveyor.bat
+
+artifacts:
+  - path: cryptopp\cryptopp\cryptopp_*.zip
+
+deploy:
+  provider: GitHub
+  auth_token:
+    secure: Cp5GRQku2ZWnKPE12NB5q11ZO0Fr5mlzdUTjnLpYJr/dki4LPVqm231edFggogy8
+  artifact: /.*\.zip/
+  force_update: false
+  on:
+    appveyor_repo_tag: true

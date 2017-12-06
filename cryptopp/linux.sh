@@ -35,7 +35,3 @@ make static shared CXX=g++-6 CC=gcc-6
 make install PREFIX=$outDir
 
 popd
-
-# pack up for deployment
-tar cJf cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz cryptopp
-readlink -f cryptopp_${CRYPTOPP_VERSION}_linux.tar.xz

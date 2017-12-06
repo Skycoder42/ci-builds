@@ -29,7 +29,3 @@ make -f GNUmakefile-cross static shared
 make -f GNUmakefile-cross install PREFIX=$outDir
 
 popd
-
-# pack up for deployment
-tar cJf cryptopp_${CRYPTOPP_VERSION}_ios.tar.xz cryptopp
-greadlink -f cryptopp_${CRYPTOPP_VERSION}_ios.tar.xz
