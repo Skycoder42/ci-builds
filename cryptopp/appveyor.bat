@@ -1,6 +1,4 @@
-set CRYPTOPP_VERSION=5_6_5
 set CRYPTOPP_NAME=CRYPTOPP_%CRYPTOPP_VERSION%
-set CRYPTOPP_SHA512SUM=abca8089e2d587f59c503d2d6412b3128d061784349c735f3ee46be1cb9e3d0d0fed9a9173765fa033eb2dc744e03810de45b8cc2f8ca1672a36e4123648ea44
 
 if "%PLATFORM%" == "mingw" (
 	call %~dp0\mingw.bat || exit /B 1
@@ -28,3 +26,4 @@ if "%PLATFORM%" == "mingw" (
 
 cd cryptopp
 7z a cryptopp_%CRYPTOPP_VERSION%_%PLATFORM%.zip cryptopp || exit \B 1
+dir

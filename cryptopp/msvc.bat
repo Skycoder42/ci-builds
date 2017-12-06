@@ -23,6 +23,7 @@ start /wait devenv.exe /upgrade .\cryptlib.vcxproj
 powershell -Command "(gc cryptlib.vcxproj) -replace '<RuntimeLibrary>MultiThreadedDebug<\/RuntimeLibrary>', '<RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>' | Out-File -encoding ASCII cryptlib.vcxproj" || exit /B 1
 powershell -Command "(gc cryptlib.vcxproj) -replace '<RuntimeLibrary>MultiThreaded<\/RuntimeLibrary>', '<RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>' | Out-File -encoding ASCII cryptlib.vcxproj" || exit /B 1
 
+@echo on
 :: build debug and release
 msbuild /t:Build /p:Configuration=Debug;Platform=%VC_ARCH% cryptlib.vcxproj || exit /B 1
 cd %VC_ARCH%\Output\Debug

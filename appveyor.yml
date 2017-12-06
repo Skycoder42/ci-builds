@@ -5,6 +5,9 @@ image:
 version: build-{build}
 
 environment:
+  CRYPTOPP_VERSION: 5_6_5
+  CRYPTOPP_SHA512SUM: abca8089e2d587f59c503d2d6412b3128d061784349c735f3ee46be1cb9e3d0d0fed9a9173765fa033eb2dc744e03810de45b8cc2f8ca1672a36e4123648ea44
+
   matrix:
     - PLATFORM: msvc2017_64
     - PLATFORM: msvc2017
@@ -18,8 +21,8 @@ matrix:
       image: Visual Studio 2015
     - PLATFORM: msvc2017
       image: Visual Studio 2015
-    - PLATFORM: mingw53_32
-      image: Visual Studio 2015
+    - PLATFORM: mingw
+      image: Visual Studio 2017
     - PLATFORM: msvc2015_64
       image: Visual Studio 2017
     - PLATFORM: msvc2015
@@ -29,7 +32,7 @@ build_script:
   - .\cryptopp\appveyor.bat
 
 artifacts:
-  - path: cryptopp\cryptopp\cryptopp_*.zip
+  - path: cryptopp\cryptopp_%CRYPTOPP_VERSION%_%PLATFORM%.zip
 
 deploy:
   provider: GitHub
