@@ -22,7 +22,7 @@ if [[ "$PLATFORM" == "android_x86" ]]; then
 	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh x86
 fi
 
-if [[ "$PLATFORM" == "clang_64" ]]; then
+if [[ "$PLATFORM" == "macos" ]]; then
 	$scriptdir/macos.sh
 fi
 
