@@ -33,4 +33,3 @@ fi
 # pack up for deployment
 cd $scriptdir
 tar cJf cryptopp_${CRYPTOPP_VERSION}_${PLATFORM}.tar.xz cryptopp
-ls -lsa
