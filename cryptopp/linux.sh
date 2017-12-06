@@ -31,7 +31,7 @@ echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
 tar -xf "$CRYPTOPP_NAME.tar.gz"
 
 cd cryptopp-$CRYPTOPP_NAME
-make static shared CXX=g++-6 CC=gcc-6
+make static CXX=g++-6 CC=gcc-6
 make install PREFIX=$outDir
 
 popd

@@ -25,7 +25,7 @@ cd cryptopp-$CRYPTOPP_NAME
 set +e
 source ./setenv-ios.sh
 set -e
-make -f GNUmakefile-cross static shared
+make -f GNUmakefile-cross static
 make -f GNUmakefile-cross install PREFIX=$outDir
 
 popd

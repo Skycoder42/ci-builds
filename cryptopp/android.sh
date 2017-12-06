@@ -51,7 +51,7 @@ source setenv-android.sh $ABI gnu
 set -e
 export AOSP_STL_INC="$ANDROID_NDK_ROOT/sysroot/usr/include/$ABI_INC -I$AOSP_STL_INC -I$ANDROID_NDK_ROOT/sysroot/usr/include/"
 export CXXFLAGS="-D__ANDROID_API__=$ABI_NR"
-make -f GNUmakefile-cross static shared
+make -f GNUmakefile-cross static
 make -f GNUmakefile-cross install PREFIX=$outDir
 
 popd
