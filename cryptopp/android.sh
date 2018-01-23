@@ -20,19 +20,6 @@ unzip -qq /tmp/android-sdk.zip -d $ANDROID_HOME
 echo y | $ANDROID_HOME/tools/bin/sdkmanager --update > /dev/null
 echo y | $ANDROID_HOME/tools/bin/sdkmanager "ndk-bundle" > /dev/null
 
-# setup and build
-export ANDROID_SDK_ROOT=$ANDROID_HOME
-export ANDROID_NDK_ROOT=$ANDROID_NDK
-export ABI_NR=16
-export AOSP_API="android-$ABI_NR"
-
-if [[ "$ABI" == "armv7a" ]]; then
-	ABI_INC=arm-linux-androideabi
-fi
-if [[ "$ABI" == "x86" ]]; then
-	ABI_INC=i686-linux-android
-fi
-
 # get sources and start building
 outDir=$scriptdir/cryptopp
 cd $scriptdir
@@ -46,11 +33,15 @@ echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
 tar -xf "$CRYPTOPP_NAME.tar.gz"
 
 cd cryptopp-$CRYPTOPP_NAME
+
+# setup and build
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export ANDROID_NDK_ROOT=$ANDROID_NDK
+export AOSP_API_VERSION=16
+
 set +e
-source setenv-android.sh $ABI gnu
+source setenv-android.sh $ABI gnu-shared
 set -e
-export AOSP_STL_INC="$ANDROID_NDK_ROOT/sysroot/usr/include/$ABI_INC -I$AOSP_STL_INC -I$ANDROID_NDK_ROOT/sysroot/usr/include/"
-export CXXFLAGS="-D__ANDROID_API__=$ABI_NR"
 make -f GNUmakefile-cross static
 make -f GNUmakefile-cross install PREFIX=$outDir
 

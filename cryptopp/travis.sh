@@ -15,7 +15,7 @@ if [[ "$PLATFORM" == "linux" ]]; then
 fi
 
 if [[ "$PLATFORM" == "android_armv7" ]]; then
-	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh armv7a
+	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh armv7a-neon
 fi
 
 if [[ "$PLATFORM" == "android_x86" ]]; then
