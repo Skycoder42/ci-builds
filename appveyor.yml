@@ -13,7 +13,6 @@ environment:
     - PLATFORM: msvc2017
     - PLATFORM: msvc2015_64
     - PLATFORM: msvc2015
-    - PLATFORM: mingw
 
 matrix:
   exclude:
@@ -21,8 +20,6 @@ matrix:
       image: Visual Studio 2015
     - PLATFORM: msvc2017
       image: Visual Studio 2015
-    - PLATFORM: mingw
-      image: Visual Studio 2017
     - PLATFORM: msvc2015_64
       image: Visual Studio 2017
     - PLATFORM: msvc2015

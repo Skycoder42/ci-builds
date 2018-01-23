@@ -7,7 +7,7 @@ scriptdir=$(dirname $(greadlink -f $0))
 
 # brew
 brew update
-brew install python3 coreutils
+brew upgrade coreutils || brew install coreutils
 
 # get sources and start building
 outDir=$scriptdir/cryptopp
