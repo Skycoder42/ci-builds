@@ -8,12 +8,12 @@ dist: trusty
 os: linux
 
 env:
-  - PLATFORM=android_armv7
-  - PLATFORM=android_x86
-
   global:
     - OPENSSL_VERSION=1.0.2n
     - OPENSSL_SHA256SUM=370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe
+  matrix:
+    - PLATFORM=android_armv7
+    - PLATFORM=android_x86
 
 script:
   - ./openssl/travis.sh
