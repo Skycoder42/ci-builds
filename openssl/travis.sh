@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 export XZ_OPT=-9
 export MAKEFLAGS="-j$(nproc)"
