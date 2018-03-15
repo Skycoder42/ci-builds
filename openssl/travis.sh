@@ -49,8 +49,8 @@ fi
 
 source setenv-android.sh $ABI gnu-shared
 ./config shared no-ssl2 no-ssl3 --openssldir=$outDir --prefix=$outDir
-sed -i "64a\CFLAG += -I$ANDROID_NDK/sysroot/usr/include/$EXTRA_ABI/ -I$ANDROID_NDK/sysroot/usr/include/" Makefile
-make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+sed -i "64a\CFLAG += -I$ANDROID_NDK/sysroot/usr/include/$EXTRA_ABI/ -I$ANDROID_NDK/sysroot/usr/include/ -Wno-attributes" Makefile
+make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs > /dev/null
 make install
 
 popd
