@@ -51,9 +51,13 @@ source setenv-android.sh $ABI gnu-shared
 ./config shared no-ssl2 no-ssl3 --openssldir=$outDir --prefix=$outDir
 sed -i "64a\CFLAG += -I$ANDROID_NDK/sysroot/usr/include/$EXTRA_ABI/ -I$ANDROID_NDK/sysroot/usr/include/ -Wno-attributes" Makefile
 make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs > /dev/null
-echo +++after make+++
-make install
-echo +++after instal+++
+
+install -D -m644 libcrypto.a $outDir/libcrypto.a
+install -D -m644 libcrypto.pc $outDir/libcrypto.pc
+install -D -m755 libcrypto.so $outDir/libcrypto.so
+install -D -m644 libssl.a $outDir/libssl.a
+install -D -m644 libssl.pc $outDir/libssl.pc
+install -D -m755 libssl.so $outDir/libssl.so
 
 popd
 
