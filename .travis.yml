@@ -1,0 +1,38 @@
+language: cpp
+
+services:
+  - docker
+
+sudo: required
+dist: trusty
+os: linux
+
+env:
+  global:
+    - OPENSSL_VERSION=1.0.2n
+    - OPENSSL_SHA256SUM=370babb75f278c39e0c50e8c4e7493bc0f18db6867478341a832a982fd15a8fe
+
+  - PLATFORM=android_armv7
+  - PLATFORM=android_x86
+
+script:
+  - ./openssl/travis.sh
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: HTdqsvtXU12zQ7+4Pe/i/JaTDsoRstf7q/BxjGLUFtPZaoFuwRk5MDYsusjsZpcuerGy52d/XRlaS7osySDz0LSUUhz+GJQj2n0f9ttOUqSL6qvUe6A5+KXAJjxOpGigk2B5UPcc+Ir4jW5Q60mh1jB/pQnRJvELu+N+rj34oJ5OaTc+DkWGTH6hO7nu5ZJ6U20r/XttGZjsGPOC9ymRpk7ChIfg7e0WHhx9a2pn4yj4jFOS22unPKvJMQVu5Mm/RymW4T+a1V1ZLybVThwTV9c7SAZlvjZ+YUnOxvg1/i+1HTzNxpeoHGlaj1vIZNqybqSH5gRySNpL0AAZqrUvsLDr6BheBe6pX6P1Z4m1fFXBhHFtao8OCa/clVhuuAkOiB5dP6Fz+KYP7adaU5gusM5qQmFW46NjFQ/8if2WX2tkZ3patuf2D9ZPOC7m4kKh2DM5iE1sPd43LUNZn+kCICHztHR+nPIu4zJH7C/vbjdq/t5eRM9MkUVmEc2xobemUC+iYdPKFgGBDciWF25g7lGeGVEqrW0IVcvPYzEctdB4rX7Ad72q5o9Jy3fTwmxGeNto1n1IZBBUdmLd0F2zeyTbYsrk6v0lO8gdQ3SwMSDWI6rQrEoai0ZDsdIC788zPBpKD41nEMxGJBBpz7gLLT4Q74RJAOtyby0hlYmqW7k=
+  file: cryptopp/cryptopp_${CRYPTOPP_VERSION}_${PLATFORM}.tar.xz
+  on:
+    repo: Skycoder42/ci-builds
+    tags: true
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
