@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 export XZ_OPT=-9
 export MAKEFLAGS="-j$(nproc)"
@@ -38,15 +38,21 @@ export ANDROID_NDK_ROOT=$ANDROID_NDK
 if [ "$PLATFORM" == "android_armv7" ]; then
 	export ARCH=arch-arm
 	export EABI=arm-linux-androideabi-4.9
+	EXTRA_ABI=arm-linux-androideabi
 elif [ "$PLATFORM" == "android_x86" ]; then
 	export ARCH=arch-x86
 	export EABI=x86-4.9
+	EXTRA_ABI=i686-linux-android
 else
 	exit 1
 fi
 
 source setenv-android.sh $ABI gnu-shared
-./config shared android
+./config shared no-ssl2 no-ssl3 --openssldir=$outDir --prefix=$outDir
+sed -i "64a\CFLAG += -I$ANDROID_NDK/sysroot/usr/include/$EXTRA_ABI/ -I$ANDROID_NDK/sysroot/usr/include/" Makefile
 make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+make install
 
 popd
+
+find $outDir
