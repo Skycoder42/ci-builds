@@ -61,4 +61,5 @@ install -D -m755 libssl.so $outDir/libssl.so
 
 popd
 
-find $outDir
+cd $scriptdir
+tar cJf openssl_${OPENSSL_VERSION}_${PLATFORM}.tar.xz openssl
