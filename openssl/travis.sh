@@ -46,7 +46,7 @@ else
 fi
 
 source setenv-android.sh $ABI gnu-shared
-./Configure shared android
+./config shared android
 make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
 
 popd
