@@ -14,10 +14,6 @@ add-apt-repository -y ppa:ubuntu-toolchain-r/test
 apt-get -qq update
 apt-get -qq install --no-install-recommends make g++ git ca-certificates curl python3
 
-# test gcc
-gcc-6 --version
-g++-6 --version
-
 # get sources and start building
 outDir=$scriptdir/cryptopp
 cd $scriptdir
