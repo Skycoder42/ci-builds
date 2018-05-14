@@ -12,7 +12,7 @@ add-apt-repository -y ppa:ubuntu-toolchain-r/test
 
 # install build deps
 apt-get -qq update
-apt-get -qq install --no-install-recommends make g++ git ca-certificates curl python3 gcc-6 g++-6
+apt-get -qq install --no-install-recommends make g++ git ca-certificates curl python3
 
 # test gcc
 gcc-6 --version
@@ -31,7 +31,7 @@ echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
 tar -xf "$CRYPTOPP_NAME.tar.gz"
 
 cd cryptopp-$CRYPTOPP_NAME
-make static CXX=g++-6 CC=gcc-6
+make static
 make install PREFIX=$outDir
 
 popd
