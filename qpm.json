@@ -1,0 +1,20 @@
+{
+    "author": {
+        "email": "skycoder42.de@gmx.de",
+        "name": "Skycoder42"
+    },
+    "dependencies": [
+    ],
+    "license": "BSD_3_CLAUSE",
+    "name": "de.skycoder42.qtandroid.openssl",
+    "pri_filename": "qt_openssl.pri",
+    "repository": {
+        "type": "GIT",
+        "url": "https://github.com/Skycoder42/ci-builds"
+    },
+    "version": {
+        "fingerprint": "",
+        "label": "1.0.2.17",
+        "revision": ""
+    }
+}
