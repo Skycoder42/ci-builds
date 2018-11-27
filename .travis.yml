@@ -9,8 +9,8 @@ os: linux
 
 env:
   global:
-    - OPENSSL_VERSION=1.0.2p
-    - OPENSSL_SHA256SUM=50a98e07b1a89eb8f6a99477f262df71c6fa7bef77df4dc83025a2845c827d00
+    - OPENSSL_VERSION=1.0.2q
+    - OPENSSL_SHA256SUM=a8531541d93bb4486bc07abdc0018c4d759643d6e30dfc514c5939364b3230ca
   matrix:
     - PLATFORM=android_armv7
     - PLATFORM=android_x86
