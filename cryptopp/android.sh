@@ -29,10 +29,10 @@ mkdir cryptopp
 mkdir build
 pushd build
 
-curl -Lo "./$CRYPTOPP_NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$CRYPTOPP_NAME.tar.gz"
-echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
-
-tar -xf "$CRYPTOPP_NAME.tar.gz"
+#curl -Lo "./$CRYPTOPP_NAME.tar.gz" "https://github.com/weidai11/cryptopp/archive/$CRYPTOPP_NAME.tar.gz"
+#echo "$CRYPTOPP_SHA512SUM $CRYPTOPP_NAME.tar.gz" | sha512sum --check -
+#tar -xf "$CRYPTOPP_NAME.tar.gz"
+git clone https://github.com/Skycoder42/cryptopp --branch android-7.0.0 "cryptopp-$CRYPTOPP_NAME"
 
 cd cryptopp-$CRYPTOPP_NAME
 
