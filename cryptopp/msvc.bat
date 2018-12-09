@@ -10,7 +10,7 @@ cd build
 
 :: get the sources
 powershell -Command "Invoke-WebRequest https://github.com/weidai11/cryptopp/archive/%CRYPTOPP_NAME%.zip -OutFile .\%CRYPTOPP_NAME%.zip" || exit /B 1
-powershell -Command "(Get-FileHash -Algorithm SHA512 -Path C:\tmp\cryptopp-CRYPTOPP_5_6_5.zip).Hash.equals('%CRYPTOPP_SHA512SUM%')"
+powershell -Command "(Get-FileHash -Algorithm SHA512 -Path .\%CRYPTOPP_NAME%.zip).Hash.equals('%CRYPTOPP_SHA512SUM%')"
 7z x .\%CRYPTOPP_NAME%.zip || exit /B 1
 
 cd cryptopp-%CRYPTOPP_NAME%

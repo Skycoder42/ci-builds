@@ -1,5 +1,10 @@
 set CRYPTOPP_NAME=CRYPTOPP_%CRYPTOPP_VERSION%
 
+echo %PLATFORM% | findstr /C:"mingw" > nul && (
+	call %~dp0\mingw.bat || exit /B 1
+	goto package
+)
+
 :: prepare vcvarsall
 if "%APPVEYOR_BUILD_WORKER_IMAGE%" == "Visual Studio 2017" (
 	set VC_DIR="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat"
@@ -20,6 +25,7 @@ echo %PLATFORM% | findstr /C:"_64" > nul && (
 :: build
 call %~dp0\msvc.bat %VC_ARCH% || exit /B 1
 
+:package
 cd cryptopp
 7z a cryptopp_%CRYPTOPP_VERSION%_%PLATFORM%.zip cryptopp || exit \B 1
 dir
