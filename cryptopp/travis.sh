@@ -14,12 +14,16 @@ if [[ "$PLATFORM" == "linux" ]]; then
 	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/linux.sh
 fi
 
+if [[ "$PLATFORM" == "android_arm64_v8a" ]]; then
+	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh arm64-v8a 21
+fi
+
 if [[ "$PLATFORM" == "android_armv7" ]]; then
-	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh armv7a-neon
+	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh armv7a-neon 16
 fi
 
 if [[ "$PLATFORM" == "android_x86" ]]; then
-	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh x86
+	docker run --rm --name docker-build -e XZ_OPT -e CRYPTOPP_VERSION -e CRYPTOPP_NAME -e CRYPTOPP_SHA512SUM -v "$scriptdir:/root/project" ubuntu:latest bash /root/project/android.sh x86 16
 fi
 
 if [[ "$PLATFORM" == "macos" ]]; then

@@ -1,12 +1,14 @@
 #!/bin/bash
 set -e
 # $1 android abi (armv7a, x86)
+# $2 ABI version
 
 export MAKEFLAGS="-j$(nproc)"
 export ANDROID_HOME=$HOME/android-sdk/
 export ANDROID_NDK=$HOME/android-sdk/ndk-bundle/
 
 ABI=$1
+export AOSP_API_VERSION=$2
 scriptdir=$(dirname $(readlink -f $0))
 
 # install build deps
@@ -37,10 +39,9 @@ cd cryptopp-$CRYPTOPP_NAME
 # setup and build
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 export ANDROID_NDK_ROOT=$ANDROID_NDK
-export AOSP_API_VERSION=16
 
 set +e
-source setenv-android.sh $ABI gnu-shared
+source setenv-android.sh $ABI llvm-shared
 set -e
 make -f GNUmakefile-cross static
 make -f GNUmakefile-cross install PREFIX=$outDir
