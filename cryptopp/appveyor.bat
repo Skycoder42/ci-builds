@@ -1,3 +1,4 @@
+@echo on
 set CRYPTOPP_NAME=CRYPTOPP_%CRYPTOPP_VERSION%
 
 echo %PLATFORM% | findstr /C:"mingw" > nul && (
