@@ -1,6 +1,11 @@
 @echo off
 setlocal
 
+dir C:\
+dir C:\mingw-w64
+dir C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0
+dir C:\mingw-w64\x86_64-7.3.0-posix-seh-rt_v5-rev0\bin
+
 set scriptdir=%~dp0
 set outDir=%scriptdir%\cryptopp
 cd %scriptdir%
