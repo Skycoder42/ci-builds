@@ -3,6 +3,8 @@ set -e
 
 OPENSSL_VERSION="$1"
 ANDROID_TARGET_ARCH="$2"
+TOOLCHAIN_VERSION=4.9
+HOST_ARCH=linux-x86_64
 
 scriptdir="$(dirname "$(readlink -f "$0")")"
 
@@ -10,23 +12,31 @@ scriptdir="$(dirname "$(readlink -f "$0")")"
 curl -Lo "openssl.tar.gz" "https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz"
 tar -xf "openssl.tar.gz"
 pushd openssl-${OPENSSL_VERSION}
-ln -s "$scriptdir/setenv-android.sh"
-mkdir install
 
-# setup and build
-if [ "$ANDROID_TARGET_ARCH" == "armeabi-v7a" ]; then
-	export ARCH=arch-arm
-	export EABI=arm-linux-androideabi-4.9
-	EXTRA_ABI=arm-linux-androideabi
-elif [ "$ANDROID_TARGET_ARCH" == "x86" ]; then
-	export ARCH=arch-x86
-	export EABI=x86-4.9
-	EXTRA_ABI=i686-linux-android
-else
-	exit 1
-fi
+case "$ANDROID_TARGET_ARCH" in
+	arm64-v8a)
+		API_VERSION=21
+		ARCH_ID=android-arm64
+		TOOLCHAIN=aarch64-linux-android-$TOOLCHAIN_VERSION
+		;;
+	armeabi-v7a)
+		API_VERSION=16
+		ARCH_ID=android-arm
+		TOOLCHAIN=arm-linux-android-$TOOLCHAIN_VERSION
+		;;
+	x86)
+		API_VERSION=16
+		ARCH_ID=android-x86
+		TOOLCHAIN=x86-$TOOLCHAIN_VERSION
+		;;
+	*)
+		echo "Unsupported ANDROID_TARGET_ARCH: $ANDROID_TARGET_ARCH"
+		exit 1
+		;;
+esac
 
-source setenv-android.sh $ABI gnu-shared
-./config shared no-ssl2 no-ssl3 "--openssldir=$PWD/install" "--prefix=$PWD/install"
-sed -i "64a\CFLAG += -I$ANDROID_NDK/sysroot/usr/include/$EXTRA_ABI/ -I$ANDROID_NDK/sysroot/usr/include/ -Wno-attributes" Makefile
-make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+export ANDROID_NDK=$ANDROID_NDK_ROOT
+export PATH=$ANDROID_NDK/toolchains/llvm/prebuilt/$HOST_ARCH/bin/:$ANDROID_NDK/toolchains/$TOOLCHAIN/prebuilt/$HOST_ARCH/bin:$PATH
+./Configure $ARCH_ID shared no-ssl3 -D__ANDROID_API__=$API_VERSION
+make depend
+exec make SHLIB_VERSION_NUMBER= SHLIB_EXT=.so build_libs

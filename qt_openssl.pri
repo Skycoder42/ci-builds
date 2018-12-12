@@ -1,4 +1,4 @@
-OPENSSL_VERSION = 1.0.2q
+OPENSSL_VERSION = 1.1.1a
 
 android {
 	compile_openssl.target = compile_openssl
